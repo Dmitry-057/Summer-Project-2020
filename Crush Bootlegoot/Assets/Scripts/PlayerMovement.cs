@@ -5,30 +5,54 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float movSpeed;  //speed when grounded
-   /* [SerializeField] float airMovSpeed; //speed in the air
-    [SerializeField] float movAccel; // maximum change in velocity while on the ground
-    [SerializeField] float airMovAccel; // maximum change in velocity while in air */
+    public float movSpeed;
+    public float jumpSpeed;
+    public GameObject crash;
+    public Rigidbody2D rb2d;
+    public bool inAir = false;
 
-    private Rigidbody2D rb2d;
-    // bool isGrounded; // true when character is on the ground
+    
+    
 
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        /*float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        rb2d.AddForce(movement * movSpeed);
+        rb2d.AddForce(movement * movSpeed); */
+
+        if(Input.GetButton("Horizontal"))
+        {
+            crash.transform.position += new Vector3(movSpeed * Time.deltaTime * Input.GetAxis("Horizontal"),0,0);
+        }
+
+        if(Input.GetButton("Jump") && !inAir)
+        {
+            rb2d.AddForce(new Vector2(0f, jumpSpeed));
+            inAir = true;
+            Debug.Log("In Air = true");
+        }
+
+       
+}
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            inAir = false;
+            Debug.Log("In Air = false");
+        }
     }
 
 
 
-  
+
 
 
 
