@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float movSpeed;
-    public float jumpSpeed;
+    public float movSpeed = 5f;
+    public float jumpSpeed = 2f;
     public GameObject crash;
     public Rigidbody2D rb2d;
     public bool inAir = false;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetButton("Horizontal"))
         {
-            crash.transform.position += new Vector3(movSpeed * Time.deltaTime * Input.GetAxis("Horizontal"),0,0);
+            crash.transform.position += new Vector3(movSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), 0, 0);
         }
 
         if(Input.GetButton("Jump") && !inAir)
@@ -39,14 +39,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
        
-}
+    }      
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Floor")
         {
             inAir = false;
-            Debug.Log("In Air = false");
+            Debug.Log("In Air = ");
         }
     }
 
