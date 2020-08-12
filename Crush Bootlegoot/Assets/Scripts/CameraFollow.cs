@@ -17,16 +17,19 @@ public class CameraFollow : MonoBehaviour
     
     void LateUpdate() //called after update and fixedupdate
     {
-        //current camera position in temp
-        Vector3 temp = transform.position;
+        if (playerTransform != null) 
+        {
+            //current camera position in temp
+            Vector3 temp = transform.position;
 
-        //camera's x now equals player's x
-        temp.x = playerTransform.position.x;
+            //camera's x now equals player's x
+            temp.x = playerTransform.position.x;
 
-        //adds offset to the camera
-        temp.x += offset;
+            //adds offset to the camera
+            temp.x += offset;
 
-        //camera's position set to what is in temp
-        transform.position = temp;
+            //camera's position set to what is in temp
+            transform.position = temp;
+        }
     }
 }

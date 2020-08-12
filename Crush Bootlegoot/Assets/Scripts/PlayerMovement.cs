@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public Animator animator;
     public float movSpeed = 5f;
     public float jumpSpeed = 2f;
     public GameObject crash;
@@ -29,14 +29,21 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButton("Horizontal"))
         {
             crash.transform.position += new Vector3(movSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), 0, 0);
+            animator.SetBool("IsRuning", true); //crutch for animations
         }
 
-        if(Input.GetButton("Jump") && !inAir)
+        else { animator.SetBool("IsRuning", false); } //crutch for anim, player stops running
+
+        if (Input.GetButton("Jump") && !inAir)
         {
             rb2d.AddForce(new Vector2(0f, jumpSpeed));
             inAir = true;
+            animator.SetBool("IsInAir", inAir); //start condition for jump animation
             Debug.Log("In Air = true");
+            
         }
+
+        
 
        
     }      
@@ -46,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             inAir = false;
+            animator.SetBool("IsInAir", inAir); //stop condition for jump animation
             Debug.Log("In Air = ");
         }
     }
