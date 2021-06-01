@@ -43,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
+        /*if (rb2d.position.y < -5f)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+        } */
+
         
 
        

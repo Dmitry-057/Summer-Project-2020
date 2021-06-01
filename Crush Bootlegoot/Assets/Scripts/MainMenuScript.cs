@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    void Awake()
+    {
+        FindObjectOfType<AudioManager>().Play("MenuTheme");
+    }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FindObjectOfType<AudioManager>().Stop("MenuTheme");
+        FindObjectOfType<AudioManager>().Play("LevelTheme");
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
